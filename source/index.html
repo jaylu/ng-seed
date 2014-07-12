@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>AngularJS + RequireJS Seed (0.2.1)</title>
+    <link rel="stylesheet" href="assets/css/example.css">
+</head>
+<body>
+
+
+<!-- Content -->
+<div data-ng-view></div>
+
+<!-- Scripts -->
+<script src="vendor/requirejs/require.js"></script>
+<script>
+    // obtain requirejs config
+    require(['require', './js/config-require'], function (require, config) {
+
+        // set cache beater
+        config.urlArgs = 'bust=v0.4.0';
+
+        // update global require config
+        window.require.config(config);
+
+        // load app
+        require(['./js/main.js']);
+    });
+</script>
+
+</body>
+</html>
