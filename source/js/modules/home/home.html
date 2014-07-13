@@ -1,1 +1,102 @@
-It's as easy as 2 * 2 = {{ twoTimesTwo }}
+<div id="aa-calculator">
+
+    <div id="aa-input-joiner">
+
+        <h3>Add a people</h3>
+
+        <input type="text" ng-model="newJoiner" size="10" placeholder="add people here">
+        <input type="submit" value="ADD" ng-click="addJoiner(newJoiner)">
+
+        (click on label to remove)
+
+        <label ng-repeat="joiner in joiners" ng-click="removeJoiner(joiner)"> &nbsp;{{joiner}}&nbsp;|</label>
+
+    </div>
+
+
+    <div id="aa-input-expense">
+
+        <h3>Add a record</h3>
+
+
+        <select ng-model="newRecord.payer" ng-options="joiner for joiner in joiners"></select>
+
+        pay
+
+        <input type="text" ng-model="newRecord.totalAmount" value="{{newRecord.totalAmount}}" size="5"
+               placeholder="add money here" ng-change="onTotalAmountChange()">
+
+        as
+
+        <input type="text" ng-model="newRecord.item" size="10" placeholder="Reason">
+
+        for
+
+        <span ng-repeat="detail in newRecord.detail">
+            &nbsp;&nbsp;
+                <input type="checkbox" ng-model="detail.isRelated" name="{{detail.name}}"
+                       ng-change="onSingleCheckedChange(detail.name, detail.isRelated)">{{detail.name}}
+                <input type="text" size="3" ng-model="detail.amount" value="{{detail.amount | number:2}}"
+                       ng-change="onSingleAmountChange()">
+             &nbsp;&nbsp;
+        </span>
+
+
+        <input type="submit" value="OK" ng-click="addNewRecord(newRecord)">
+
+
+    </div>
+
+    <div id="aa-result">
+
+        <h3>Result</h3>
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Item</th>
+                <th>Amount</th>
+                <th>Pay By</th>
+                <th ng-repeat="joiner in joiners">{{joiner}}</th>
+            </tr>
+            </thead>
+
+            <tbody>
+
+            <tr ng-repeat="record in records" ng-click="removeRecord($index)">
+                <td>{{record.item}}</td>
+                <td>{{record.totalAmount | number:2}}</td>
+                <td>{{record.payer}}</td>
+                <td ng-repeat="detail in record.detail">{{detail.amount | number: 2}}</td>
+            </tr>
+
+            <tr>
+                <td>-----</td>
+                <td>-----</td>
+                <td>TOTAL COST --></td>
+                <td ng-repeat="summary in summaries">{{summary.totalCostAmount | number:2}}</td>
+            </tr>
+
+            <tr>
+                <td>-----</td>
+                <td>-----</td>
+                <td>TOTAL PAYED--></td>
+                <td ng-repeat="summary in summaries">{{summary.totalPayedAmount | number:2}}</td>
+            </tr>
+
+            <tr>
+                <td>-----</td>
+                <td>-----</td>
+                <td>BALANCE --></td>
+                <td ng-repeat="summary in summaries">{{summary.balance | number: 2}}</td>
+            </tr>
+
+            </tbody>
+        </table>
+
+
+    </div>
+
+</div>
+
+
